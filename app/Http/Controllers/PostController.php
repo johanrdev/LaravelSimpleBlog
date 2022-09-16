@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth')->except(['index', 'show']);
+        // $this->middleware('auth')->except(['index', 'show']);
+         $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -17,7 +19,26 @@ class PostController extends Controller
      */
     public function index()
     {
-        return "posts";
+        if (!empty(request('user'))) {
+            $posts = Post::whereHas('user', function($query) {
+                $query->where('name', 'LIKE', request('user'));
+            })->orderBy('id', 'desc')->paginate(10);
+        } else if (!empty(request('category'))) {
+            $posts = Post::whereHas('categories', function($query) {
+                $query->where('name', 'LIKE', request('category'));
+            })->orderBy('id', 'desc')->paginate(10);
+        } else {
+            $posts = Post::orderBy('id', 'desc')->paginate(10);
+        }
+
+        return view('posts.index', compact('posts'));
+    }
+
+    public function getUserPosts(Request $request, User $user) {
+        $user = User::find($user->id);
+        $posts = Post::where('user_id', $user->id)->paginate(10);
+
+        return view('posts.index', compact('user', 'posts'));
     }
 
     /**

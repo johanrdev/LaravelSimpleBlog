@@ -43,14 +43,18 @@ class User extends Authenticatable
     ];
 
     public function posts() {
-        $this->hasMany(Post::class);
+        return $this->hasMany(Post::class);
     }
 
     public function categories() {
-        $this->hasMany(Category::class);
+        return $this->hasMany(Category::class);
     }
 
     public function comments() {
-        $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);
+    }
+
+    public function getRouteKeyName() {
+        return 'name';
     }
 }

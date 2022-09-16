@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::model('user', User::class);
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,5 +27,7 @@ Route::get('/dashboard', function() { return view('dashboard'); })->middleware('
 Route::resource('posts', PostController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('comments', CommentController::class);
+
+Route::get('/user/{user}/posts', [PostController::class, 'getUserPosts'])->name('getUserPosts');
 
 require __DIR__.'/auth.php';

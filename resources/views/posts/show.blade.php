@@ -16,11 +16,11 @@
                           
                         <span>Go back</span>
                     </a>
-                    <div class="lg:col-span-4 mb-0 h-60 md:h-80 lg:h-128 bg-gray-400 rounded bg-post-placeholder bg-cover bg-center bg-no-repeat opacity-75 hover:opacity-100 transition-all duration-500 flex flex-col justify-center items-center"></div>
+                    <div class="lg:col-span-4 mb-0 h-60 md:h-80 lg:h-128 bg-gray-400 rounded bg-post-placeholder bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center"></div>
                     <div class="md:p-6 lg:p-12">
                         <div class="my-3">
                             <h1 class="text-2xl md:text-3xl lg:text-3xl font-bold">{{ $post->title }}</h1>
-                            <span class="font-bold text-md italic">Published {{ $post->created_at->diffForHumans() }} by {{ $post->user->name }}</span>
+                            <span class="italic">Published {{ $post->created_at->diffForHumans() }} by {{ $post->user->name }}</span>
                         </div>
                         <p class="mb-12 leading-relaxed md:leading-loose text-md md:text-lg">{!! nl2br(e($post->body)) !!}</p>
                         <hr>

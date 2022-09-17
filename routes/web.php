@@ -21,10 +21,14 @@ use Illuminate\Support\Facades\Route;
 Route::model('user', User::class);
 
 Route::get('/', function () {
-    return redirect()->route('getUserBlog', Auth::user());
+    if (Auth::check()) {
+        return redirect()->route('getUserBlog', Auth::user());
+    } else {
+        return redirect()->route('login');
+    }
 });
 
-Route::get('/dashboard', function() { return view('dashboard'); })->name('dashboard');
+Route::get('/dashboard', function() { return view('dashboard'); })->middleware('auth')->name('dashboard');
 Route::resource('posts', PostController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('comments', CommentController::class);

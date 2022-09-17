@@ -18,9 +18,11 @@
                     <x-nav-link :href="route('browse')" :active="request()->routeIs('browse')">
                         {{ __('Browse') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    @if (Auth::check())
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -42,9 +44,11 @@
 
                         <x-slot name="content">
                             <!-- Authentication -->
-                            <x-dropdown-link :href="route('dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-dropdown-link>
+                            @if (Auth::check())
+                                <x-dropdown-link :href="route('dashboard')">
+                                    {{ __('Dashboard') }}
+                                </x-dropdown-link>
+                            @endif
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -59,9 +63,12 @@
                     </x-dropdown>
                 </div>
             @else
-                <div class="hidden sm:flex sm:ml-6">
+                <div class="hidden sm:-my-1 sm:flex sm:ml-6">
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('Login') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                        {{ __('Register') }}
                     </x-nav-link>
                 </div>
             @endif

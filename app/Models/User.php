@@ -54,6 +54,14 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function followings() {
+        return $this->belongsToMany(User::class, 'friend_user', 'user_id', 'friend_id');
+    }
+
+    public function followers() {
+        return $this->belongsToMany(User::class, 'friend_user', 'friend_id', 'user_id');
+    }
+
     public function getRouteKeyName() {
         return 'name';
     }

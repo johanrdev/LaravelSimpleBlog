@@ -5,24 +5,21 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('feed') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-teal-100" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden sm:-my-1 sm:ml-10 sm:flex">
-                    {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link> --}}
+                    @if (Auth::check())
+                        <x-nav-link :href="route('feed')" :active="request()->routeIs('feed')">
+                            {{ __('Feed') }}
+                        </x-nav-link>
+                    @endif
                     <x-nav-link :href="route('browse')" :active="request()->routeIs('browse')">
                         {{ __('Browse') }}
                     </x-nav-link>
-                    @if (Auth::check())
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                    @endif
                 </div>
             </div>
 
@@ -45,8 +42,8 @@
                         <x-slot name="content">
                             <!-- Authentication -->
                             @if (Auth::check())
-                                <x-dropdown-link :href="route('dashboard')">
-                                    {{ __('Dashboard') }}
+                                <x-dropdown-link :href="route('feed')">
+                                    {{ __('Feed') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('posts.create')">
                                     {{ __('Write post') }}
@@ -91,8 +88,8 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-teal-600">
         <div class="pt-2 pb-3">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link :href="route('feed')" :active="request()->routeIs('feed')">
+                {{ __('Feed') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('browse')" :active="request()->routeIs('browse')">
                 {{ __('Browse') }}

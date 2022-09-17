@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Post;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
@@ -28,7 +29,18 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/dashboard', function() { return view('dashboard'); })->middleware('auth')->name('dashboard');
+Route::get('/feed', function() { 
+    $feed = Post::whereIn('user_id', Auth::user()->followings
+        ->map(function($item) { 
+            return $item->id; 
+        }))
+        ->orderBy('created_at', 'desc')
+        ->limit(50)
+    ->paginate(5);
+
+    return view('feed', compact('feed')); 
+})->middleware('auth')->name('feed');
+
 Route::resource('posts', PostController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('comments', CommentController::class);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StorePostRequest;
 
 class PostController extends Controller
 {
@@ -35,7 +37,7 @@ class PostController extends Controller
 
     public function getUserBlog(Request $request, User $user) {
         $user = User::find($user->id);
-        $posts = Post::where('user_id', $user->id)->paginate(10);
+        $posts = Post::where('user_id', $user->id)->orderBy('id', 'desc')->paginate(10);
 
         return view('posts.index', compact('user', 'posts'));
     }
@@ -47,7 +49,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -56,9 +58,17 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+        $post = Post::create([
+            'title' => $request->input('title'),
+            'body' => $request->input('body'),
+            'user_id' => Auth::user()->id
+        ]);
+
+        $post->categories()->attach($request->categories);
+
+        return redirect()->route('getUserBlog', Auth::user());
     }
 
     /**

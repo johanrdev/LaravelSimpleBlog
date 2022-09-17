@@ -48,12 +48,15 @@
                                 <x-dropdown-link :href="route('dashboard')">
                                     {{ __('Dashboard') }}
                                 </x-dropdown-link>
+                                <x-dropdown-link :href="route('posts.create')">
+                                    {{ __('Write post') }}
+                                </x-dropdown-link>
                             @endif
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
-                                <x-dropdown-link :href="route('logout')"
+                                <x-dropdown-link class="border-gray-200 border-t" :href="route('logout')"
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();">
                                     {{ __('Log Out') }}

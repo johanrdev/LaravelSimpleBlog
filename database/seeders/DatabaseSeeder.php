@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             ])->each(function($user) {
             Post::factory(10)->create(['user_id' => $user->id]);
 
-            Category::factory(3)->create(['user_id' => $user->id]);
+            Category::factory(10)->create(['user_id' => $user->id]);
 
             $categories = Category::where('user_id', $user->id)->get();
 

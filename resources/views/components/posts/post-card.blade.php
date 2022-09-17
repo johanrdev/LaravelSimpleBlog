@@ -10,7 +10,7 @@
         </h1>
 
         <!-- Meta -->
-        <div class="flex justify-between mt-3 py-3">
+        <div class="flex justify-between mt-0 pb-3">
             <span class="italic lg:mt-0 rounded flex flex-col md:flex-row flex-wrap">
                 Published {{ $post->created_at->diffForHumans() }} by&nbsp;<a href="{{ route('getUserBlog', $post->user ) }}" class="text-rose-500 underline">{{ $post->user->name }}</a>
             </span>
@@ -25,8 +25,8 @@
         
         <!-- Body -->
         <p class="grow block leading-relaxed text-lg break-all">
-            {{ substr($post->body, 0, 240) }}
-            @if (strlen($post->body > 240))
+            {{ substr($post->body, 0, 360) }}
+            @if (strlen($post->body > 360))
                 <span>[...]<span>
                 {{-- <a href="{{ route('posts.show', $post) }}" class="text-lg text-rose-500 underline font-bold shrink-0">Read More</a> --}}
             @endif

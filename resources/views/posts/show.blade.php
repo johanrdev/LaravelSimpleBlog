@@ -12,9 +12,11 @@
                     </a>
                     <div class="lg:col-span-4 mb-0 h-60 md:h-80 lg:h-128 bg-gray-400 rounded bg-post-placeholder bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center"></div>
                     <div class="md:p-6 lg:p-12">
-                        <div class="mt-3 mb-6 text-center">
+                        <div class="mt-3 mb-12 text-center">
                             <h1 class="text-2xl md:text-3xl lg:text-3xl font-bold break-all mb-3">{{ $post->title }}</h1>
-                            <span class="italic">Published {{ $post->created_at->diffForHumans() }} by {{ $post->user->name }}</span>
+                            <span class="italic">Published {{ $post->created_at->diffForHumans() }} by
+                                <a href="{{ route('getUserBlog', $post->user) }}" class="text-rose-500 font-bold underline">{{ $post->user->name }}</a>
+                            </span>
                         </div>
                         <p class="mb-12 leading-relaxed md:leading-loose text-md md:text-lg break-all">{!! nl2br(e($post->body)) !!}</p>
                         <hr>
@@ -38,28 +40,30 @@
                             </div>
                         </div>
 
-                        <div class="mt-12 mb-3">
-                            <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-3">
-                                {{ __('Add a comment') }}
-                            </h2>
-                        </div>
+                        @if (Auth::check())
+                            <div class="mt-12 mb-3">
+                                <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-3">
+                                    {{ __('Add a comment') }}
+                                </h2>
+                            </div>
 
-                        @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <p class="text-rose-500 font-bold">{{ $error }}</p>
-                            @endforeach
+                            @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <p class="text-rose-500 font-bold">{{ $error }}</p>
+                                @endforeach
+                            @endif
+                        
+                            <form method="POST" action="{{ route('addComment', $post) }}" id="comment-form">
+                                @csrf
+
+                                <div class="mt-3">
+                                    <textarea id="text" name="text" rows="7" class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 resize-none" required></textarea>
+                                </div>
+                                <div class="mt-3 flex justify-end">
+                                    <x-primary-button class="rounded-sm bg-teal-500">Publish</x-primary-button>
+                                </div>
+                            </form>
                         @endif
-
-                        <form method="POST" action="{{ route('addComment', $post) }}" id="comment-form">
-                            @csrf
-
-                            <div class="mt-3">
-                                <textarea id="text" name="text" rows="7" class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 resize-none" required></textarea>
-                            </div>
-                            <div class="mt-3 flex justify-end">
-                                <x-primary-button class="rounded-sm bg-teal-500">Publish</x-primary-button>
-                            </div>
-                        </form>
 
                         <div class="mt-12 mb-3">
                             <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-3">
@@ -75,7 +79,8 @@
                             @endif
 
                             @forelse ($comments as $comment)
-                                <h3 class="font-bold text-lg">{{ $comment->user->name }} published:</h3>
+                                <h3 class="font-bold text-lg">
+                                    <a href="{{ route('getUserBlog', $comment->user) }}" class="text-rose-500 font-bold underline">{{ $comment->user->name }}</a> published:</h3>
                                 <ul class="mb-3 flex">
                                     <li>{{ $comment->created_at->diffForHumans() }}</li>
                                     @if (Auth::user()->id === $comment->user->id || $post->user->id === Auth::user()->id)

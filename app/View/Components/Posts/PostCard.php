@@ -6,24 +6,16 @@ use Illuminate\View\Component;
 
 class PostCard extends Component
 {
-    public $title;
-    public $body;
-    public $date;
-    public $categories;
-    public $user;
+    public $post;
     
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($title, $body, $date, $categories, $user)
+    public function __construct($post)
     {
-        $this->title = $title;
-        $this->body = $body;
-        $this->date = $date;
-        $this->categories = $categories;
-        $this->user = $user;
+        $this->post = $post;
     }
 
     /**

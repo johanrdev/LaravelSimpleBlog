@@ -10,9 +10,16 @@
         </h1>
 
         <!-- Meta -->
-        <span class="italic mt-3 lg:mt-0 py-2 rounded flex flex-col md:flex-row flex-wrap">
-            Published {{ $post->created_at->diffForHumans() }} by&nbsp;<a href="{{ route('getUserBlog', $post->user ) }}" class="text-rose-500 underline">{{ $post->user->name }}</a>
-        </span>
+        <div class="flex justify-between mt-3 py-3">
+            <span class="italic lg:mt-0 rounded flex flex-col md:flex-row flex-wrap">
+                Published {{ $post->created_at->diffForHumans() }} by&nbsp;<a href="{{ route('getUserBlog', $post->user ) }}" class="text-rose-500 underline">{{ $post->user->name }}</a>
+            </span>
+            @if ($post->user->id === Auth::user()->id)
+                <div class="ml-6">
+                    <a href="{{ route('posts.edit', $post) }}" class="text-rose-500 underline font-bold">Edit</a>
+                </div>
+            @endif
+        </div>
         
         <!-- Body -->
         <p class="grow block leading-relaxed text-lg break-all">

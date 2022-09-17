@@ -90,7 +90,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -100,9 +100,16 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(StorePostRequest $request, Post $post)
     {
-        //
+        $post->update([
+            'title' => $request->input('title'),
+            'body' => $request->input('body')
+        ]);
+
+        $post->categories()->sync($request->input('categories'));
+
+        return redirect()->route('posts.show', $post);
     }
 
     /**
@@ -113,6 +120,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('getUserBlog', Auth::user());
     }
 }

@@ -74,11 +74,25 @@
                                 </div>
                             @endif
 
-                            @foreach ($comments as $comment)
-                                <h3 class="font-bold text-lg">{{ $comment->user->name }} published {{ $comment->created_at->diffForHumans() }}:</h3>
-                                <p>{{ $comment->text }}</p>
+                            @forelse ($comments as $comment)
+                                <h3 class="font-bold text-lg">{{ $comment->user->name }} published:</h3>
+                                <ul class="mb-3 flex">
+                                    <li>{{ $comment->created_at->diffForHumans() }}</li>
+                                    @if (Auth::user()->id === $comment->user->id || $post->user->id === Auth::user()->id)
+                                        <li class="before:mx-2 before:content-['/']"><a href="{{ route('comments.edit', $comment) }}" class="text-rose-500 font-bold underline italic">Edit</a></li>
+                                        <li class="before:mx-2 before:content-['/']"><a href="#"" onclick="event.preventDefault(); document.getElementById('delete-comment-form').submit();" class="text-rose-500 font-bold underline italic">Delete</a></li>
+
+                                        <form method="POST" action="{{ route('comments.destroy', $comment) }}" id="delete-comment-form">
+                                            @method('DELETE')
+                                            @csrf
+                                        </form>
+                                    @endif
+                                </ul>
+                                <p class="text-lg leading-relaxed">{{ $comment->text }}</p>
                                 <br><hr><br>
-                            @endforeach
+                            @empty
+                                <p>Nothing to show</p>
+                            @endforelse
 
                             @if ($comments->hasPages())
                                 <div class="py-6">

@@ -99,6 +99,10 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $post = $comment->post;
+        
+        $comment->delete();
+
+        return redirect(route('posts.show', compact('post')) . '#comment-form');
     }
 }

@@ -36,6 +36,8 @@ Route::resource('comments', CommentController::class);
 Route::get('/posts', [PostController::class, 'index'])->name('browse');
 Route::get('/users/{user}/blog', [PostController::class, 'getUserBlog'])->name('getUserBlog');
 
+Route::post('/comments/create/{post}', [CommentController::class, 'addComment'])->name('addComment');
+
 Route::post('/search', [SearchController::class, 'filter'])->name('search');
 
 require __DIR__.'/auth.php';

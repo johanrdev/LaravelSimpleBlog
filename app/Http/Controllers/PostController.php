@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePostRequest;
@@ -79,7 +80,11 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        $comments = Comment::where('post_id', $post->id)
+            ->orderBy('id', 'desc')
+        ->paginate(10);
+
+        return view('posts.show', compact('post', 'comments'));
     }
 
     /**

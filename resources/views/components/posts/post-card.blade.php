@@ -14,10 +14,12 @@
             <span class="italic lg:mt-0 rounded flex flex-col md:flex-row flex-wrap">
                 Published {{ $post->created_at->diffForHumans() }} by&nbsp;<a href="{{ route('getUserBlog', $post->user ) }}" class="text-rose-500 underline">{{ $post->user->name }}</a>
             </span>
-            @if ($post->user->id === Auth::user()->id)
-                <div class="ml-6">
-                    <a href="{{ route('posts.edit', $post) }}" class="text-rose-500 underline font-bold">Edit</a>
-                </div>
+            @if (Auth::check()) 
+                @if ($post->user->id === Auth::user()->id)
+                    <div class="ml-6">
+                        <a href="{{ route('posts.edit', $post) }}" class="text-rose-500 underline font-bold">Edit</a>
+                    </div>
+                @endif
             @endif
         </div>
         
@@ -26,7 +28,7 @@
             {{ substr($post->body, 0, 240) }}
             @if (strlen($post->body > 240))
                 <span>[...]<span>
-                <a href="{{ route('posts.show', $post) }}" class="text-lg text-rose-500 underline font-bold">Read More</a>
+                {{-- <a href="{{ route('posts.show', $post) }}" class="text-lg text-rose-500 underline font-bold shrink-0">Read More</a> --}}
             @endif
             {{-- {{ strlen($post->body) > 500 ? substr($post->body, 0, 500) . '... ' : $post->body }} --}}
         </p>

@@ -42,7 +42,7 @@
                             <x-input-label for="title" :value="__('Body')" />
                             <textarea id="body" name="body" rows="20" class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 resize-none" required>{{ $post->body }}</textarea>
                         </div>
-                        <div class="flex justify-end">
+                        <div class="mt-3 flex justify-end">
                             <x-primary-button class="rounded-sm bg-teal-500">Update</x-primary-button>
                         </div>
                     </form>

@@ -4,6 +4,7 @@ use App\Models\User;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,14 +21,16 @@ use Illuminate\Support\Facades\Route;
 Route::model('user', User::class);
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('posts.index');
 });
 
-Route::get('/dashboard', function() { return view('dashboard'); })->middleware('auth')->name('dashboard');
+Route::get('/dashboard', function() { return view('dashboard'); })->name('dashboard');
 Route::resource('posts', PostController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('comments', CommentController::class);
 
 Route::get('/user/{user}/posts', [PostController::class, 'getUserPosts'])->name('getUserPosts');
+
+Route::post('/search', [SearchController::class, 'filter'])->name('search');
 
 require __DIR__.'/auth.php';

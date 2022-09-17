@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function __construct() {
-        // $this->middleware('auth')->except(['index', 'show']);
-         $this->middleware('auth');
+        $this->middleware('auth')->except(['index', 'show', 'getUserPosts']);
     }
     /**
      * Display a listing of the resource.

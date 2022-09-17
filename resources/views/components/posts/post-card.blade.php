@@ -5,7 +5,7 @@
     </a>
     <div class="lg:col-span-8 flex flex-col">
         <!-- Title -->
-        <h1 class="text-xl font-bold">
+        <h1 class="text-xl font-bold text-rose-500 underline">
             <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
         </h1>
 

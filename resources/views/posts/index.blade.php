@@ -4,7 +4,7 @@
             @if (isset($user)) 
                 {{ $user->name }}'s blog
             @else
-                {{ __('Posts') }}
+                {{ __('Browse all posts') }}
             @endif
         </h2>
     </x-slot>
@@ -16,8 +16,10 @@
                     <form method="POST" action="{{ route('search') }}">
                         @csrf
 
-                        <input type="text" name="term" placeholder="Search posts" />
-                        <x-primary-button>Submit</x-primary-button>
+                        <div class="flex">
+                            <input class="grow mr-1 border-gray-400 rounded-sm" type="text" name="term" placeholder="Search by title, text or author name" />
+                            <x-primary-button class="rounded-sm bg-teal-500">Search</x-primary-button>
+                        </div>
                     </form>
 
                     @if ($posts->hasPages())

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::model('user', User::class);
 
 Route::get('/', function () {
-    return redirect()->route('posts.index');
+    return redirect()->route('getUserBlog', Auth::user());
 });
 
 Route::get('/dashboard', function() { return view('dashboard'); })->name('dashboard');
@@ -29,7 +29,8 @@ Route::resource('posts', PostController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('comments', CommentController::class);
 
-Route::get('/user/{user}/posts', [PostController::class, 'getUserPosts'])->name('getUserPosts');
+Route::get('/posts', [PostController::class, 'index'])->name('browse');
+Route::get('/users/{user}/blog', [PostController::class, 'getUserBlog'])->name('getUserBlog');
 
 Route::post('/search', [SearchController::class, 'filter'])->name('search');
 

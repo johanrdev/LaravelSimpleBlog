@@ -12,15 +12,18 @@ class SearchController extends Controller
         $post = $post->newQuery();
 
         if (empty($term)) {
-            return redirect()->route('posts.index');
+            return redirect()->route('browse');
         }
 
         if ($request->has('term')) {
             $post->where('title', 'LIKE', '%'.$term.'%')
-                ->orWhere('body', 'LIKE', '%'.$term.'%');
+                ->orWhere('body', 'LIKE', '%'.$term.'%')
+                ->orWhereHas('user', function($query) use ($term) {
+                    $query->where('name', 'LIKE', '%'.$term.'%');
+                });
         }
 
-        $results = $post->get();
+        $results = $post->orderBy('id', 'desc')->get();
 
         return view('search.results', compact('results', 'term'));
 

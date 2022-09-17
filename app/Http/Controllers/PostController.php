@@ -33,7 +33,7 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
-    public function getUserPosts(Request $request, User $user) {
+    public function getUserBlog(Request $request, User $user) {
         $user = User::find($user->id);
         $posts = Post::where('user_id', $user->id)->paginate(10);
 

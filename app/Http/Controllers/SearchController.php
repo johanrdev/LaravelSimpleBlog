@@ -20,6 +20,9 @@ class SearchController extends Controller
                 ->orWhere('body', 'LIKE', '%'.$term.'%')
                 ->orWhereHas('user', function($query) use ($term) {
                     $query->where('name', 'LIKE', '%'.$term.'%');
+                })
+                ->orWhereHas('categories', function($query) use ($term) {
+                    $query->where('name', 'LIKE', '%'.$term.'%');
                 });
         }
 

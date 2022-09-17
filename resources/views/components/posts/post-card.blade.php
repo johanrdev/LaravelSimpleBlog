@@ -22,7 +22,7 @@
             <ul class="font-bold text-sm lg:mt-0 rounded flex flex-wrap">
                 @foreach ($post->categories as $category)
                     <li>
-                        <span class="bg-gray-200 text-gray-800 font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                        <span class="bg-gray-200 text-gray-800 font-bold mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300">
                             <a href="#" class="text-rose-500 underline">{{ $category->name }}</a>
                         </span>
                     </li>

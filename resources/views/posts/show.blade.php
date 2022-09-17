@@ -22,19 +22,23 @@
                             <h1 class="text-2xl md:text-3xl lg:text-3xl font-bold">{{ $post->title }}</h1>
                             <span class="font-bold text-md italic">Published {{ $post->created_at->diffForHumans() }} by {{ $post->user->name }}</span>
                         </div>
-                        <p class="mb-6 leading-relaxed md:leading-loose text-md md:text-lg">{!! nl2br(e($post->body)) !!}</p>
-                        <ul class="mb-24 font-bold text-xs lg:mt-0 rounded flex flex-wrap">
+                        <p class="mb-12 leading-relaxed md:leading-loose text-md md:text-lg">{!! nl2br(e($post->body)) !!}</p>
+                        <hr>
+                        <ul class="my-6 font-bold rounded flex flex-wrap">
+                            <span class="mr-3">Categories:</span>
                             @foreach ($post->categories as $category)
                                 <li>
-                                    <span class="bg-gray-200 text-gray-800 text-xs font-bold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                                    <span class="bg-gray-200 text-gray-800 text-sm font-bold mr-2 px-4 py-2 rounded-full dark:bg-gray-700 dark:text-gray-300">
                                         <a href="#" class="text-rose-500 underline">{{ $category->name }}</a>
                                     </span>
                                 </li>
                             @endforeach
                         </ul>
-                        <div class="border-gray-200 border mb-6 p-6 md:p-12 rounded flex flex-col md:flex-row items-center gap-6">
+                        <hr>
+                        
+                        <div class="border-gray-200 border mt-12 mb-6 p-6 md:p-12 rounded flex flex-col md:flex-row items-center gap-6 bg-slate-50">
                             {{-- <div class="bg-gray-400 w-20 h-20 rounded shrink-0"></div> --}}
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOSIZ6hZseAPKb42yOVWSqt00bWSi8yusbMQ&usqp=CAU" alt="" class="w-20 h-20 md:w-40 md:h-40 rounded-full shrink-0">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOSIZ6hZseAPKb42yOVWSqt00bWSi8yusbMQ&usqp=CAU" alt="" class="w-20 h-20 md:w-40 md:h-40 rounded-full shrink-0 border">
                             <div class="flex flex-col text-center md:text-left">
                                 <h1 class="font-bold text-xl md:text-2xl">About the Author</h1>
                                 <p class="text-md md:text-lg italic">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore neque quisquam ratione sit nesciunt, praesentium dolore? Tempora quo sed inventore cumque minima voluptates unde voluptatibus labore, rem error sapiente amet?</p>

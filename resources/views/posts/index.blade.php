@@ -17,7 +17,7 @@
                         @csrf
 
                         <div class="flex">
-                            <input class="grow mr-1 border-gray-400 rounded-sm" type="text" name="term" placeholder="Search by title, text or author name" />
+                            <input class="grow mr-1 border-gray-400 rounded-sm" type="text" name="term" placeholder="Search by title, text, category or author name" />
                             <x-primary-button class="rounded-sm bg-teal-500">Search</x-primary-button>
                         </div>
                     </form>

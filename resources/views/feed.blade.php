@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <x-site-container>
+        <x-site-inner-container>
+            <x-container>
                 <x-two-column-layout-container>
                     <!-- First column -->
                     <x-two-column-layout-content>
@@ -52,7 +52,7 @@
                         </x-two-column-layout-sidebar-container>
                     </x-two-column-layout-sidebar>
                 </x-two-column-layout-container>
-            </div>
-        </div>
-    </div>
+            </x-container>
+        </x-site-inner-container>
+    </x-site-container>
 </x-app-layout>

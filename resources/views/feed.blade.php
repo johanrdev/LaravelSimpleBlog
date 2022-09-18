@@ -1,10 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -12,13 +6,11 @@
                     <!-- First column -->
                     <div class="col-span-8 pr-6">
                         <!-- Section heading -->
-                        <div class="mb-6">
-                            <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-3">
-                                {{ __('Feed') }}
-                            </h2>
-
-                            <p>Showing the recent events from the people you follow.</p>
-                        </div>
+                        <x-page-header>
+                            <x-page-title>
+                                    {{ __('Feed') }}
+                            </x-page-title>
+                        </x-page-header>
 
                         @if ($notifications->hasPages())
                             <div class="py-6">
@@ -30,7 +22,7 @@
                             {{-- <x-posts.post-card :post="$post"></x-posts.post-card> --}}
 
                             <div class="flex border-gray-300 border-b items-center odd:bg-slate-100 {{ Auth::user()->id === $notification->user->id ? 'border-l-4 border-l-teal-500' : '' }}">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOSIZ6hZseAPKb42yOVWSqt00bWSi8yusbMQ&usqp=CAU" alt="" class="m-3 w-10 h-10 rounded shrink-0 border">
+                                <x-users.user-avatar :user="$notification->user" class="m-3" />
 
                                 <div class="flex flex-col p-3 break-all">
                                     <span>

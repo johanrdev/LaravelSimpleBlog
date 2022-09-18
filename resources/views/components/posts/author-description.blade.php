@@ -1,0 +1,1 @@
+<p class="text-md md:text-lg italic">{{ $slot }}</p>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePostRequest;
@@ -69,6 +70,13 @@ class PostController extends Controller
 
         $post->categories()->attach($request->categories);
 
+        $notification = new Notification([
+            'action' => 'Published',
+            'user_id' => Auth::user()->id
+        ]);
+
+        $post->notifications()->save($notification);
+
         return redirect()->route('getUserBlog', Auth::user());
     }
 
@@ -125,7 +133,19 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->comments->map(function($comment) {
+            return $comment->notifications()->update([
+                'action' => 'Deleted',
+                'notifiable_id' => null
+            ]);
+        });
+        
         $post->delete();
+
+        $post->notifications()->update([
+            'action' => 'Deleted',
+            'notifiable_id' => null
+        ]);
 
         return redirect()->route('getUserBlog', Auth::user());
     }

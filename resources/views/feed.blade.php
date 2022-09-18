@@ -20,32 +20,53 @@
                             <p>Showing the recent events from the people you follow.</p>
                         </div>
 
-                        @if ($feed->hasPages())
+                        @if ($notifications->hasPages())
                             <div class="py-6">
-                                {{ $feed->appends(request()->input())->links() }}
+                                {{ $notifications->appends(request()->input())->links() }}
                             </div>
                         @endif
     
-                        @forelse ($feed as $post)
+                        @forelse ($notifications as $notification)
                             {{-- <x-posts.post-card :post="$post"></x-posts.post-card> --}}
 
-                            <div class="flex border-gray-300 border-b items-center odd:bg-slate-100">
+                            <div class="flex border-gray-300 border-b items-center odd:bg-slate-100 {{ Auth::user()->id === $notification->user->id ? 'border-l-4 border-l-teal-500' : '' }}">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOSIZ6hZseAPKb42yOVWSqt00bWSi8yusbMQ&usqp=CAU" alt="" class="m-3 w-10 h-10 rounded shrink-0 border">
 
-                                <div class="flex flex-col p-3">
+                                <div class="flex flex-col p-3 break-all">
                                     <span>
-                                        <a href="{{ route('users.show', $post->user) }}" class="text-rose-500 font-bold underline">{{ $post->user->name }}</a> published "<a href="{{ route('posts.show', $post) }}" class="text-rose-500 font-bold underline">{{ $post->title }}</a>"!
+                                        @if (strtolower($notification->action) === 'deleted')
+                                            <p>The item was deleted.</p>
+                                        @else
+                                            @if ($notification->user->id === Auth::user()->id)
+                                                <span>You</span>
+                                            @else
+                                                <a href="{{ route('users.show', $notification->user) }}" class="text-rose-500 font-bold underline">{{ $notification->user->name }}</a>
+                                            @endif
+                                            <span>
+                                                {{ strtolower($notification->action) }}
+                                            </span> 
+                                            <span>
+                                                {{ strtolower(substr($notification->notifiable_type, 11)) }}
+                                            </span>
+                                            @if (!is_null($notification->notifiable_id))
+                                                @if ($notification->notifiable_type === 'App\Models\Comment') 
+                                                    on <a href="{{ route('posts.show', $notification->notifiable->post) }}" class="text-rose-500 font-bold underline">{{ $notification->notifiable->post->title }}</a>
+                                                @else
+                                                    <a href="{{ route('posts.show', $notification->notifiable_id) }}" class="text-rose-500 font-bold underline">{{ $notification->notifiable->title }}</a>
+                                                @endif
+                                            @endif
+                                        @endif
                                     </span>
-                                    <span class="text-sm">{{ $post->created_at->diffForHumans() }}</span>
+                                    <span class="text-sm">{{ $notification->created_at->diffForHumans() }}</span>
                                 </div>
                             </div>
                         @empty
                             <p>Nothing to show</p>
                         @endforelse
     
-                        @if ($feed->hasPages())
+                        @if ($notifications->hasPages())
                             <div class="py-6">
-                                {{ $feed->appends(request()->input())->links() }}
+                                {{ $notifications->appends(request()->input())->links() }}
                             </div>
                         @endif
                     </div>

@@ -79,25 +79,30 @@
                             @endif
 
                             @forelse ($comments as $comment)
-                                <div class="odd:bg-slate-100 border-gray-300 border p-3 my-3 rounded">
-                                    <h3 class="font-bold text-lg">
-                                        <a href="{{ route('getUserBlog', $comment->user) }}" class="text-rose-500 font-bold underline">{{ $comment->user->name }}</a> published:
-                                    </h3>
-                                    <ul class="mb-3 flex">
-                                        <li>{{ $comment->created_at->diffForHumans() }}</li>
-                                        @if (Auth::check())
-                                            @if (Auth::user()->id === $comment->user->id || $post->user->id === Auth::user()->id)
-                                                <li class="before:mx-2 before:content-['/']"><a href="{{ route('comments.edit', $comment) }}" class="text-rose-500 font-bold underline italic">Edit</a></li>
-                                                <li class="before:mx-2 before:content-['/']"><a href="#"" onclick="event.preventDefault(); document.getElementById('delete-comment-form').submit();" class="text-rose-500 font-bold underline italic">Delete</a></li>
-    
-                                                <form method="POST" action="{{ route('comments.destroy', $comment) }}" id="delete-comment-form">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                </form>
-                                            @endif
-                                        @endif
-                                    </ul>
-                                    <p class="text-lg leading-relaxed">{{ $comment->text }}</p>
+                                <div class="odd:bg-slate-100 border-gray-300 border p-3 my-3 rounded {{ Auth::user()->id === $comment->user->id ? 'border-l-4 border-l-teal-500' : '' }}">
+                                    <div class="flex">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOSIZ6hZseAPKb42yOVWSqt00bWSi8yusbMQ&usqp=CAU" alt="" class="w-10 h-10 rounded mr-3 shrink-0 border">
+                                        <div class="flex flex-col">
+                                            <h3 class="font-bold text-lg">
+                                                <a href="{{ route('getUserBlog', $comment->user) }}" class="text-rose-500 font-bold underline">{{ $comment->user->name }}</a> published:
+                                            </h3>
+                                            <ul class="mb-3 flex">
+                                                <li>{{ $comment->created_at->diffForHumans() }}</li>
+                                                @if (Auth::check())
+                                                    @if (Auth::user()->id === $comment->user->id || $post->user->id === Auth::user()->id)
+                                                        <li class="before:mx-2 before:content-['/']"><a href="{{ route('comments.edit', $comment) }}" class="text-rose-500 font-bold underline italic">Edit</a></li>
+                                                        <li class="before:mx-2 before:content-['/']"><a href="#"" onclick="event.preventDefault(); document.getElementById('delete-comment-form').submit();" class="text-rose-500 font-bold underline italic">Delete</a></li>
+            
+                                                        <form method="POST" action="{{ route('comments.destroy', $comment) }}" id="delete-comment-form">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                        </form>
+                                                    @endif
+                                                @endif
+                                            </ul>
+                                            <p class="text-lg leading-relaxed">{{ $comment->text }}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             @empty
                                 <p>Nothing to show</p>

@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Notification;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
@@ -30,25 +31,33 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/feed', function() { 
-    $arr = Auth::user()->followings->map(function($item) {
-        return $item->pivot->created_at;
-    });
-
-    $feed = Post::whereIn('user_id', Auth::user()->followings
+Route::get('/feed', function() {
+    $notifications = Notification::whereIn('user_id', Auth::user()->followings
         ->map(function($user) { 
             return $user->id; 
         }))
-        ->where(function($query) use ($arr) {
-            foreach ($arr as $a) {
-                $query->where('created_at', '>', $a);
-            }
-        })
+        ->orWhere('user_id', Auth::user()->id)
         ->orderBy('created_at', 'desc')
-        ->limit(50)
-    ->paginate(5);
+        ->paginate(10);
 
-    return view('feed', compact('feed')); 
+    // $arr = Auth::user()->followings->map(function($item) {
+    //     return $item->pivot->created_at;
+    // });
+
+    // $feed = Post::whereIn('user_id', Auth::user()->followings
+    //     ->map(function($user) { 
+    //         return $user->id; 
+    //     }))
+    //     ->where(function($query) use ($arr) {
+    //         foreach ($arr as $a) {
+    //             $query->where('created_at', '>', $a);
+    //         }
+    //     })
+    //     ->orderBy('created_at', 'desc')
+    //     ->limit(50)
+    // ->paginate(5);
+
+    return view('feed', compact('notifications')); 
 })->middleware('auth')->name('feed');
 
 Route::resource('posts', PostController::class);

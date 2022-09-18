@@ -23,6 +23,10 @@ class Post extends Model
         return $this->hasMany(Comment::class)->orderBy('id', 'desc');
     }
 
+    public function notifications() {
+        return $this->morphMany(Notification::class, 'notifiable');
+    }
+
     // public function getRouteKeyName() {
     //     return 'title';
     // }

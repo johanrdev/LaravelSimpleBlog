@@ -120,6 +120,13 @@ class PostController extends Controller
             'body' => $request->input('body')
         ]);
 
+        $notification = new Notification([
+            'action' => 'Updated',
+            'user_id' => Auth::user()->id
+        ]);
+
+        $post->notifications()->save($notification);
+
         $post->categories()->sync($request->input('categories'));
 
         return redirect()->route('posts.show', $post);

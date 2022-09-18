@@ -32,14 +32,18 @@ Route::get('/', function () {
 
 Route::get('/feed', function() { 
     $arr = Auth::user()->followings->map(function($item) {
-        return $item->created_at;
+        return $item->pivot->created_at;
     });
 
     $feed = Post::whereIn('user_id', Auth::user()->followings
         ->map(function($user) { 
             return $user->id; 
         }))
-        // ->whereIn('created_at', $arr)
+        ->where(function($query) use ($arr) {
+            foreach ($arr as $a) {
+                $query->where('created_at', '>', $a);
+            }
+        })
         ->orderBy('created_at', 'desc')
         ->limit(50)
     ->paginate(5);
@@ -60,5 +64,6 @@ Route::post('/comments/create/{post}', [CommentController::class, 'addComment'])
 Route::post('/search', [SearchController::class, 'filter'])->name('search');
 
 Route::post('follow/{user}', [UserController::class, 'follow'])->name('follow');
+Route::post('unfollow/{user}', [UserController::class, 'unfollow'])->name('unfollow');
 
 require __DIR__.'/auth.php';

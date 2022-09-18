@@ -90,4 +90,10 @@ class UserController extends Controller
 
         return redirect()->route('users.show', compact('user'));
     }
+
+    public function unfollow(Request $request, User $user) {
+        Auth::user()->followings()->detach($user->id);
+
+        return redirect()->route('users.show', compact('user'));
+    }
 }

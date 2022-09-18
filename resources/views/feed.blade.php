@@ -2,9 +2,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200 grid grid-cols-12">
+                <x-two-column-layout-container>
                     <!-- First column -->
-                    <div class="col-span-8 pr-6">
+                    <x-two-column-layout-content>
                         <!-- Section heading -->
                         <x-page-header>
                             <x-page-title>
@@ -13,88 +13,45 @@
                         </x-page-header>
 
                         @if ($notifications->hasPages())
-                            <div class="py-6">
+                            <x-pagination-container>
                                 {{ $notifications->appends(request()->input())->links() }}
-                            </div>
+                            </x-pagination-container>
                         @endif
     
                         @forelse ($notifications as $notification)
-                            {{-- <x-posts.post-card :post="$post"></x-posts.post-card> --}}
-
-                            <div class="flex border-gray-300 border-b items-center odd:bg-slate-100 {{ Auth::user()->id === $notification->user->id ? 'border-l-4 border-l-teal-500' : '' }}">
-                                <x-users.user-avatar :user="$notification->user" class="m-3" />
-
-                                <div class="flex flex-col p-3 break-all">
-                                    <span>
-                                        @if (strtolower($notification->action) === 'deleted')
-                                            <p>The item was deleted.</p>
-                                        @else
-                                            @if ($notification->user->id === Auth::user()->id)
-                                                <span>You</span>
-                                            @else
-                                                <a href="{{ route('users.show', $notification->user) }}" class="text-rose-500 font-bold underline">{{ $notification->user->name }}</a>
-                                            @endif
-                                            <span>
-                                                {{ strtolower($notification->action) }}
-                                            </span> 
-                                            <span>
-                                                {{ strtolower(substr($notification->notifiable_type, 11)) }}
-                                            </span>
-                                            @if (!is_null($notification->notifiable_id))
-                                                @if ($notification->notifiable_type === 'App\Models\Comment') 
-                                                    on <a href="{{ route('posts.show', $notification->notifiable->post) }}" class="text-rose-500 font-bold underline">{{ $notification->notifiable->post->title }}</a>
-                                                @else
-                                                    <a href="{{ route('posts.show', $notification->notifiable_id) }}" class="text-rose-500 font-bold underline">{{ $notification->notifiable->title }}</a>
-                                                @endif
-                                            @endif
-                                        @endif
-                                    </span>
-                                    <span class="text-sm">{{ $notification->created_at->diffForHumans() }}</span>
-                                </div>
-                            </div>
+                            <x-notifications.notification :source="$notification" />
                         @empty
                             <p>Nothing to show</p>
                         @endforelse
     
                         @if ($notifications->hasPages())
-                            <div class="py-6">
+                            <x-pagination-container>
                                 {{ $notifications->appends(request()->input())->links() }}
-                            </div>
+                            </x-pagination-container>
                         @endif
-                    </div>
+                    </x-two-column-layout-container>
 
-                    <!-- Second column -->
-                    <div class="col-span-4 border-l pl-6">
-                        <div class="flex flex-col border-gray-300 mb-12">
-                            <!-- Section heading -->
-                            <div class="mb-6">
-                                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                                    Followers ({{ count(Auth::user()->followers)}}):
-                                </h2>
-                            </div>
-
+                    <x-two-column-layout-sidebar>
+                        <x-two-column-layout-sidebar-container>
+                            <x-page-title class="mb-6">Followers ({{ count(Auth::user()->followers)}}):</x-page-title>
+                            
                             @forelse (Auth::user()->followers as $follower)
-                                <a href="{{ route('users.show', $follower) }}" class="text-rose-500 font-bold underline">{{ $follower->name }}</a>
+                                <x-link href="{{ route('users.show', $follower) }}">{{ $follower->name }}</x-link>
                             @empty
                                 <p>No followers</p>
                             @endforelse
-                        </div>
-                        <div class="flex flex-col border-gray-300">
-                            <!-- Section heading -->
-                            <div class="mb-6">
-                                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                                    Following ({{ count(Auth::user()->followings)}}):
-                                </h2>
-                            </div>
-
+                        </x-two-column-layout-sidebar-container>
+                        <x-two-column-layout-sidebar-container>
+                            <x-page-title>Following ({{ count(Auth::user()->followings)}}):</x-page-title>
+                            
                             @forelse (Auth::user()->followings as $follower)
-                                <a href="{{ route('users.show', $follower) }}" class="text-rose-500 font-bold underline">{{ $follower->name }}</a>
+                                <x-link href="{{ route('users.show', $follower) }}">{{ $follower->name }}</x-link>
                             @empty
                                 <p>No followings</p>
                             @endforelse
-                        </div>
-                    </div>
-                </div>
+                        </x-two-column-layout-sidebar-container>
+                    </x-two-column-layout-sidebar>
+                </x-two-column-layout-container>
             </div>
         </div>
     </div>

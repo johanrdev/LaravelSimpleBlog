@@ -20,7 +20,7 @@ class Post extends Model
     }
 
     public function comments() {
-        return $this->hasMany(Comment::class)->orderBy('id', 'desc');
+        return $this->hasMany(Comment::class)->whereNull('parent_id')->orderBy('id', 'desc');
     }
 
     public function notifications() {

@@ -89,6 +89,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $comments = Comment::where('post_id', $post->id)
+            ->whereNull('parent_id')
             ->orderBy('id', 'desc')
         ->paginate(10);
 

@@ -52,7 +52,8 @@ class CommentController extends Controller
         $comment = Comment::create([
             'text' => $request->input('text'),
             'post_id' => $post->id,
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'parent_id' => null
         ]);
 
         $notification = new Notification([
@@ -63,6 +64,17 @@ class CommentController extends Controller
         $comment->notifications()->save($notification);
 
         return redirect(route('posts.show', compact('post')) . '#comment-form');
+    }
+
+    public function reply(Comment $comment) {
+        Comment::create([
+            'text' => 'Test reply',
+            'user_id' => Auth::user()->id,
+            'post_id' => $comment->post_id,
+            'parent_id' => $comment->id
+        ]);
+        
+        return $comment;
     }
 
     /**

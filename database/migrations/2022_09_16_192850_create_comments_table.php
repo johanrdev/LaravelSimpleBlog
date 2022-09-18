@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('text');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('post_id')->constrained()->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->constrained('comments');
         });
     }
 

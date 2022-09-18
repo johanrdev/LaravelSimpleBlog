@@ -12,7 +12,7 @@
         <!-- Meta -->
         <div class="flex justify-between mt-0 pb-3">
             <span class="italic lg:mt-0 rounded flex flex-col md:flex-row flex-wrap">
-                Published {{ $post->created_at->diffForHumans() }} by&nbsp;<a href="{{ route('getUserBlog', $post->user ) }}" class="text-rose-500 underline">{{ $post->user->name }}</a>
+                Published {{ $post->created_at->diffForHumans() }} by&nbsp;<a href="{{ route('users.show', $post->user ) }}" class="text-rose-500 underline">{{ $post->user->name }}</a>
             </span>
             @if (Auth::check()) 
                 @if ($post->user->id === Auth::user()->id)

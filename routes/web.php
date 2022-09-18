@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Post;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::model('user', User::class);
+// Route::model('user', User::class);
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -30,10 +31,15 @@ Route::get('/', function () {
 });
 
 Route::get('/feed', function() { 
+    $arr = Auth::user()->followings->map(function($item) {
+        return $item->created_at;
+    });
+
     $feed = Post::whereIn('user_id', Auth::user()->followings
-        ->map(function($item) { 
-            return $item->id; 
+        ->map(function($user) { 
+            return $user->id; 
         }))
+        // ->whereIn('created_at', $arr)
         ->orderBy('created_at', 'desc')
         ->limit(50)
     ->paginate(5);
@@ -44,6 +50,7 @@ Route::get('/feed', function() {
 Route::resource('posts', PostController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('comments', CommentController::class);
+Route::resource('users', UserController::class);
 
 Route::get('/posts', [PostController::class, 'index'])->name('browse');
 Route::get('/users/{user}/blog', [PostController::class, 'getUserBlog'])->name('getUserBlog');
@@ -51,5 +58,7 @@ Route::get('/users/{user}/blog', [PostController::class, 'getUserBlog'])->name('
 Route::post('/comments/create/{post}', [CommentController::class, 'addComment'])->name('addComment');
 
 Route::post('/search', [SearchController::class, 'filter'])->name('search');
+
+Route::post('follow/{user}', [UserController::class, 'follow'])->name('follow');
 
 require __DIR__.'/auth.php';

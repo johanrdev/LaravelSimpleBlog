@@ -55,14 +55,14 @@ class User extends Authenticatable
     }
 
     public function followings() {
-        return $this->belongsToMany(User::class, 'friend_user', 'user_id', 'friend_id');
+        return $this->belongsToMany(User::class, 'friend_user', 'user_id', 'friend_id')->withTimestamps();
     }
 
     public function followers() {
-        return $this->belongsToMany(User::class, 'friend_user', 'friend_id', 'user_id');
+        return $this->belongsToMany(User::class, 'friend_user', 'friend_id', 'user_id')->withTimestamps();
     }
 
-    public function getRouteKeyName() {
-        return 'name';
-    }
+    // public function getRouteKeyName() {
+    //     return 'name';
+    // }
 }

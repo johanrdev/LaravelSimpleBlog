@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect()->route('getUserBlog', Auth::user());
+        return redirect()->route('posts.index', Auth::user());
     } else {
         return redirect()->route('login');
     }
@@ -65,11 +65,11 @@ Route::resource('categories', CategoryController::class);
 Route::resource('comments', CommentController::class);
 Route::resource('users', UserController::class);
 
-Route::get('/posts', [PostController::class, 'index'])->name('browse');
-Route::get('/users/{user}/blog', [PostController::class, 'getUserBlog'])->name('getUserBlog');
+// Route::get('/posts', [PostController::class, 'index'])->name('browse');
+// Route::get('/users/{user}/blog', [PostController::class, 'getUserBlog'])->name('getUserBlog');
 
-Route::post('/comments/create/{post}', [CommentController::class, 'addComment'])->name('addComment');
-Route::post('/comments/reply/{comment}', [CommentController::class, 'reply'])->name('reply');
+Route::post('/comments/create/{post}', [CommentController::class, 'storeWithPost'])->name('comments.storeWithPost');
+// Route::post('/comments/reply/{comment}', [CommentController::class, 'reply'])->name('reply');
 
 Route::post('/search', [SearchController::class, 'filter'])->name('search');
 

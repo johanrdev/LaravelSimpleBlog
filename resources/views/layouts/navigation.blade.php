@@ -17,7 +17,7 @@
                             {{ __('Feed') }}
                         </x-nav-link>
                     @endif
-                    <x-nav-link :href="route('browse')" :active="request()->routeIs('browse')">
+                    <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                         {{ __('Browse') }}
                     </x-nav-link>
                 </div>
@@ -91,7 +91,7 @@
             <x-responsive-nav-link :href="route('feed')" :active="request()->routeIs('feed')">
                 {{ __('Feed') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('browse')" :active="request()->routeIs('browse')">
+            <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                 {{ __('Browse') }}
             </x-responsive-nav-link>
         </div>

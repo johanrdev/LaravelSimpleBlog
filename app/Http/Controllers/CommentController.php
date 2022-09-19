@@ -17,38 +17,19 @@ class CommentController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+    public function index() {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+    public function create() {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCommentRequest $request)
-    {
-        
+    public function store(StoreCommentRequest $request) {
+        //
     }
 
-    public function addComment(StoreCommentRequest $request, Post $post) {
+    public function storeWithPost(StoreCommentRequest $request, Post $post) {
         $comment = Comment::create([
             'text' => $request->input('text'),
             'post_id' => $post->id,

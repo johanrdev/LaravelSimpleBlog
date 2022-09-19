@@ -3,12 +3,12 @@
         <x-site-inner-container>
             <x-container>
                 <x-inner-container>
-                    <x-return-link :href="route('browse')" />
+                    <x-return-link :href="route('posts.index')" />
 
                     <x-posts.post-image :post="$post" class="h-128"></x-posts.post-image>
                     
                     <x-posts.post-article-content>
-                        <x-posts.post-title :post="$post" :isLink="false" class="text-center" />
+                        <x-posts.post-title :post="$post" :is-link="false" class="text-center" />
                             
                         <x-posts.post-meta-header class="justify-center">
                             <x-posts.post-meta :post="$post" />
@@ -19,7 +19,7 @@
                         <x-posts.post-categories :post="$post" />
                         
                         <x-posts.author-container>
-                            <x-users.user-avatar :user="$post->user" :isLarge="true" />
+                            <x-users.user-avatar :user="$post->user" :is-large="true" />
                                 
                             <x-posts.author-content>
                                 <x-posts.author-title>About the Author</x-posts.author-title>
@@ -42,7 +42,8 @@
                                 @endforeach
                             @endif
                         
-                            <form method="POST" action="{{ route('addComment', $post) }}" id="comment-form">
+                            <form method="POST" action="{{ route('comments.storeWithPost', $post) }}" id="comment-form">
+                                @method('POST')
                                 @csrf
 
                                 <div class="mt-3">

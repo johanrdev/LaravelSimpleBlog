@@ -13,15 +13,11 @@ use App\Http\Requests\StorePostRequest;
 class PostController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth')->except(['index', 'show', 'getUserPosts']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+
+    // Show all posts
+    public function index() {
         if (!empty(request('user'))) {
             $posts = Post::whereHas('user', function($query) {
                 $query->where('name', 'LIKE', request('user'));
@@ -37,6 +33,7 @@ class PostController extends Controller
         return view('posts.index', compact('posts'));
     }
 
+    // Show all user posts
     public function getUserBlog(Request $request, User $user) {
         $user = User::find($user->id);
         $posts = Post::where('user_id', $user->id)->orderBy('id', 'desc')->paginate(10);
@@ -44,24 +41,13 @@ class PostController extends Controller
         return view('posts.index', compact('user', 'posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+    // Show the form to create a new post
+    public function create() {
         return view('posts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePostRequest $request)
-    {
+    // Insert a new post
+    public function store(StorePostRequest $request) {
         $post = Post::create([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
@@ -77,17 +63,11 @@ class PostController extends Controller
 
         $post->notifications()->save($notification);
 
-        return redirect()->route('getUserBlog', Auth::user());
+        return redirect()->route('posts.index', Auth::user());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post)
-    {
+    // Show a single post
+    public function show(Post $post) {
         $comments = Comment::where('post_id', $post->id)
             ->whereNull('parent_id')
             ->orderBy('id', 'desc')
@@ -96,24 +76,12 @@ class PostController extends Controller
         return view('posts.show', compact('post', 'comments'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
-    {
+    // Show the form for updating a post
+    public function edit(Post $post) {
         return view('posts.edit', compact('post'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+    // Update a post
     public function update(StorePostRequest $request, Post $post)
     {
         $post->update([
@@ -133,14 +101,11 @@ class PostController extends Controller
         return redirect()->route('posts.show', $post);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
-     */
+    // Delete a post
     public function destroy(Post $post)
     {
+        // Set the notifiable_id for all feed notifications associated to the post's comments' to null.
+        // This will display "The item was deleted" in the feed.
         $post->comments->map(function($comment) {
             return $comment->notifications()->update([
                 'action' => 'Deleted',
@@ -155,6 +120,6 @@ class PostController extends Controller
             'notifiable_id' => null
         ]);
 
-        return redirect()->route('getUserBlog', Auth::user());
+        return redirect()->route('posts.index', Auth::user());
     }
 }

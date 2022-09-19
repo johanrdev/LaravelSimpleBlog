@@ -4,4 +4,4 @@
     {{ $value ?? $slot }}
 </label> --}}
 
-<a {{ $attributes->merge(['class' => 'text-rose-500 underline font-bold'])}}>{{ $slot }}</a>
+<a {{ $attributes->merge(['class' => 'text-rose-500 underline font-bold cursor-pointer'])}}>{{ $slot }}</a>

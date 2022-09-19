@@ -1,8 +1,8 @@
 <x-app-layout>
-    <x-site-container>
-        <x-site-inner-container>
-            <x-container>
-                <x-inner-container>
+    <x-containers.site-container>
+        <x-containers.site-inner-container>
+            <x-containers.container>
+                <x-containers.inner-container>
                     <x-page-header>
                         <x-page-title>
                             {{ __('Editing: ') . '"' . $post->title . '"' }}
@@ -17,8 +17,8 @@
                         @endforeach
                     @endif
                    <x-forms.edit-post :post="$post" />
-                </x-inner-container>
-            </x-container>
-        </x-site-inner-container>
-    </x-site-container>
+                </x-containers.inner-container>
+            </x-containers.container>
+        </x-containers.site-inner-container>
+    </x-containers.site-container>
 </x-app-layout>

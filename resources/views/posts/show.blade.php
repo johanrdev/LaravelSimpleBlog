@@ -1,9 +1,9 @@
 <x-app-layout>
-    <x-site-container>
-        <x-site-inner-container>
-            <x-container>
-                <x-inner-container>
-                    <x-return-link :href="route('posts.index')" />
+    <x-containers.site-container>
+        <x-containers.site-inner-container>
+            <x-containers.container>
+                <x-containers.inner-container>
+                    <x-links.return-link :href="route('posts.index')" />
 
                     <x-posts.post-image :post="$post" class="h-128"></x-posts.post-image>
                     
@@ -38,7 +38,7 @@
 
                             @if ($errors->any())
                                 @foreach ($errors->all() as $error)
-                                    <p class="text-rose-500 font-bold">{{ $error }}</p>
+                                    <x-alert type="error">{{ $error }}</x-alert>
                                 @endforeach
                             @endif
                         
@@ -53,22 +53,22 @@
 
                         <div class="mt-3">
                             @if ($comments->hasPages())
-                                <x-pagination-container>
+                                <x-containers.pagination-container>
                                     {{ $comments->fragment('comment-form')->links() }}
-                                </x-pagination-container>
+                                </x-containers.pagination-container>
                             @endif
 
                             @include('posts.partials.comment', ['comments' => $comments])
 
                             @if ($comments->hasPages())
-                                <x-pagination-container>
+                                <x-containers.pagination-container>
                                     {{ $comments->fragment('comment-form')->links() }}
-                                </x-pagination-container>
+                                </x-containers.pagination-container>
                             @endif
                         </div>
                     </x-posts.post-article-content>
-                </x-inner-container>
-            </x-container>
-        </x-site-inner-container>
-    </x-site-container>
+                </x-containers.inner-container>
+            </x-containers.container>
+        </x-containers.site-inner-container>
+    </x-containers.site-container>
 </x-app-layout>

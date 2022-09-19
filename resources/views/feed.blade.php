@@ -36,7 +36,7 @@
                             <x-page-title class="mb-6">Followers ({{ count(Auth::user()->followers)}}):</x-page-title>
                             
                             @forelse (Auth::user()->followers as $follower)
-                                <x-link href="{{ route('users.show', $follower) }}">{{ $follower->name }}</x-link>
+                                <x-links.link href="{{ route('users.show', $follower) }}">{{ $follower->name }}</x-links.link>
                             @empty
                                 <p>No followers</p>
                             @endforelse
@@ -45,7 +45,7 @@
                             <x-page-title>Following ({{ count(Auth::user()->followings)}}):</x-page-title>
                             
                             @forelse (Auth::user()->followings as $follower)
-                                <x-link href="{{ route('users.show', $follower) }}">{{ $follower->name }}</x-link>
+                                <x-links.link href="{{ route('users.show', $follower) }}">{{ $follower->name }}</x-links.link>
                             @empty
                                 <p>No followings</p>
                             @endforelse

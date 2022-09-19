@@ -13,13 +13,13 @@
                 <!-- Navigation Links -->
                 <div class="hidden sm:-my-1 sm:ml-10 sm:flex">
                     @if (Auth::check())
-                        <x-nav-link :href="route('feed')" :active="request()->routeIs('feed')">
+                        <x-links.nav-link :href="route('feed')" :active="request()->routeIs('feed')">
                             {{ __('Feed') }}
-                        </x-nav-link>
+                        </x-links.nav-link>
                     @endif
-                    <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+                    <x-links.nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                         {{ __('Browse') }}
-                    </x-nav-link>
+                    </x-links.nav-link>
                 </div>
             </div>
 
@@ -42,34 +42,34 @@
                         <x-slot name="content">
                             <!-- Authentication -->
                             @if (Auth::check())
-                                <x-dropdown-link :href="route('feed')">
+                                <x-links.dropdown-link :href="route('feed')">
                                     {{ __('Feed') }}
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('posts.create')">
+                                </x-links.dropdown-link>
+                                <x-links.dropdown-link :href="route('posts.create')">
                                     {{ __('Write post') }}
-                                </x-dropdown-link>
+                                </x-links.dropdown-link>
                             @endif
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
-                                <x-dropdown-link class="border-gray-200 border-t" :href="route('logout')"
+                                <x-links.dropdown-link class="border-gray-200 border-t" :href="route('logout')"
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();">
                                     {{ __('Log Out') }}
-                                </x-dropdown-link>
+                                </x-links.dropdown-link>
                             </form>
                         </x-slot>
                     </x-dropdown>
                 </div>
             @else
                 <div class="hidden sm:-my-1 sm:flex sm:ml-6">
-                    <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                    <x-links.nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('Login') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
+                    </x-links.nav-link>
+                    <x-links.nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('Register') }}
-                    </x-nav-link>
+                    </x-links.nav-link>
                 </div>
             @endif
 
@@ -88,12 +88,12 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-teal-600">
         <div class="pt-2 pb-3">
-            <x-responsive-nav-link :href="route('feed')" :active="request()->routeIs('feed')">
+            <x-links.responsive-nav-link :href="route('feed')" :active="request()->routeIs('feed')">
                 {{ __('Feed') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+            </x-links.responsive-nav-link>
+            <x-links.responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                 {{ __('Browse') }}
-            </x-responsive-nav-link>
+            </x-links.responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -109,11 +109,11 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
-                        <x-responsive-nav-link :href="route('logout')"
+                        <x-links.responsive-nav-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                             this.closest('form').submit();">
                             {{ __('Log Out') }}
-                        </x-responsive-nav-link>
+                        </x-links.responsive-nav-link>
                     </form>
                 </div>
             </div>

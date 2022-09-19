@@ -9,7 +9,7 @@
                 @if ($source->user->id === Auth::user()->id)
                     You
                 @else
-                    <x-link href="{{ route('users.show', $source->user) }}">{{ $source->user->name }}</x-link>
+                    <x-links.link href="{{ route('users.show', $source->user) }}">{{ $source->user->name }}</x-links.link>
                 @endif
                 
                 {{ strtolower($source->action) }}
@@ -17,9 +17,9 @@
                 
                 @if (!is_null($source->notifiable_id))
                     @if ($source->notifiable_type === 'App\Models\Comment') 
-                        on <x-link href="{{ route('posts.show', $source->notifiable->post) }}">{{ $source->notifiable->post->title }}</x-link>
+                        on <x-links.link href="{{ route('posts.show', $source->notifiable->post) }}">{{ $source->notifiable->post->title }}</x-links.link>
                     @else
-                        <x-link href="{{ route('posts.show', $source->notifiable_id) }}">{{ $source->notifiable->title }}</x-link>
+                        <x-links.link href="{{ route('posts.show', $source->notifiable_id) }}">{{ $source->notifiable->title }}</x-links.link>
                     @endif
                 @endif
             @endif

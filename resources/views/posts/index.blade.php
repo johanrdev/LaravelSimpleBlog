@@ -1,8 +1,8 @@
 <x-app-layout>
-    <x-site-container>
-        <x-site-inner-container>
-            <x-container>
-                <x-inner-container>
+    <x-containers.site-container>
+        <x-containers.site-inner-container>
+            <x-containers.container>
+                <x-containers.inner-container>
                     <x-page-header>
                         <x-page-title>
                             @if (isset($user)) 
@@ -23,9 +23,9 @@
                     </form>
 
                     @if ($posts->hasPages())
-                        <x-pagination-container>
+                        <x-containers.pagination-container>
                             {{ $posts->appends(request()->input())->links() }}
-                        </x-pagination-container>
+                        </x-containers.pagination-container>
                     @endif
                     
                     @foreach ($posts as $post)
@@ -33,12 +33,12 @@
                     @endforeach
 
                     @if ($posts->hasPages())
-                        <x-pagination-container>
+                        <x-containers.pagination-container>
                             {{ $posts->appends(request()->input())->links() }}
-                        </x-pagination-container>
+                        </x-containers.pagination-container>
                     @endif
-                </x-inner-container>
-            </x-container>
-        </x-site-inner-container>
-    </x-site-container>
+                </x-containers.inner-container>
+            </x-containers.container>
+        </x-containers.site-inner-container>
+    </x-containers.site-container>
 </x-app-layout>

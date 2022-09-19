@@ -42,17 +42,7 @@
                                 @endforeach
                             @endif
                         
-                            <form method="POST" action="{{ route('comments.storeWithPost', $post) }}" id="comment-form">
-                                @method('POST')
-                                @csrf
-
-                                <div class="mt-3">
-                                    <textarea id="text" name="text" rows="7" class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 resize-none" required></textarea>
-                                </div>
-                                <div class="mt-3 flex justify-end">
-                                    <x-primary-button class="rounded-sm bg-teal-500">Publish</x-primary-button>
-                                </div>
-                            </form>
+                            <x-forms.create-comment :post="$post" />
                         @endif
 
                         <x-page-header>

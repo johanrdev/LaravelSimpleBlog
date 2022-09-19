@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class PaginationContainer extends Component
+class SiteInnerContainer extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class PaginationContainer extends Component
      */
     public function render()
     {
-        return view('components.pagination-container');
+        return view('components.containers.site-inner-container');
     }
 }

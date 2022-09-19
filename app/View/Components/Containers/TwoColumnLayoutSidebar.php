@@ -23,6 +23,6 @@ class TwoColumnLayoutSidebar extends Component
      */
     public function render()
     {
-        return view('components.two-column-layout-sidebar');
+        return view('components.containers.two-column-layout-sidebar');
     }
 }

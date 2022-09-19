@@ -1,19 +1,21 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Forms;
 
 use Illuminate\View\Component;
 
-class TwoColumnLayoutContent extends Component
+class DeletePost extends Component
 {
+    public $post;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($post)
     {
-        //
+        $this->post = $post;
     }
 
     /**
@@ -23,6 +25,6 @@ class TwoColumnLayoutContent extends Component
      */
     public function render()
     {
-        return view('components.two-column-layout-content');
+        return view('components.forms.delete-post');
     }
 }

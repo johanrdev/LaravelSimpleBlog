@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class SiteInnerContainer extends Component
+class TwoColumnLayoutContent extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class SiteInnerContainer extends Component
      */
     public function render()
     {
-        return view('components.site-inner-container');
+        return view('components.containers.two-column-layout-content');
     }
 }

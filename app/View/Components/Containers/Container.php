@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class SiteContainer extends Component
+class Container extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class SiteContainer extends Component
      */
     public function render()
     {
-        return view('components.site-container');
+        return view('components.containers.container');
     }
 }

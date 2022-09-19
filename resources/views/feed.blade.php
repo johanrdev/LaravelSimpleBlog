@@ -1,10 +1,10 @@
 <x-app-layout>
-    <x-site-container>
-        <x-site-inner-container>
-            <x-container>
-                <x-two-column-layout-container>
+    <x-containers.site-container>
+        <x-containers.site-inner-container>
+            <x-containers.container>
+                <x-containers.two-column-layout-container>
                     <!-- First column -->
-                    <x-two-column-layout-content>
+                    <x-containers.two-column-layout-content>
                         <!-- Section heading -->
                         <x-page-header>
                             <x-page-title>
@@ -13,9 +13,9 @@
                         </x-page-header>
 
                         @if ($notifications->hasPages())
-                            <x-pagination-container>
+                            <x-containers.pagination-container>
                                 {{ $notifications->appends(request()->input())->links() }}
-                            </x-pagination-container>
+                            </x-containers.pagination-container>
                         @endif
     
                         @forelse ($notifications as $notification)
@@ -25,14 +25,14 @@
                         @endforelse
     
                         @if ($notifications->hasPages())
-                            <x-pagination-container>
+                            <x-containers.pagination-container>
                                 {{ $notifications->appends(request()->input())->links() }}
-                            </x-pagination-container>
+                            </x-containers.pagination-container>
                         @endif
-                    </x-two-column-layout-container>
+                    </x-containers.two-column-layout-content>
 
-                    <x-two-column-layout-sidebar>
-                        <x-two-column-layout-sidebar-container>
+                    <x-containers.two-column-layout-sidebar>
+                        <x-containers.two-column-layout-sidebar-container>
                             <x-page-title class="mb-6">Followers ({{ count(Auth::user()->followers)}}):</x-page-title>
                             
                             @forelse (Auth::user()->followers as $follower)
@@ -40,8 +40,8 @@
                             @empty
                                 <p>No followers</p>
                             @endforelse
-                        </x-two-column-layout-sidebar-container>
-                        <x-two-column-layout-sidebar-container>
+                        </x-containers.two-column-layout-sidebar-container>
+                        <x-containers.two-column-layout-sidebar-container>
                             <x-page-title>Following ({{ count(Auth::user()->followings)}}):</x-page-title>
                             
                             @forelse (Auth::user()->followings as $follower)
@@ -49,10 +49,10 @@
                             @empty
                                 <p>No followings</p>
                             @endforelse
-                        </x-two-column-layout-sidebar-container>
-                    </x-two-column-layout-sidebar>
-                </x-two-column-layout-container>
-            </x-container>
-        </x-site-inner-container>
-    </x-site-container>
+                        </x-containers.two-column-layout-sidebar-container>
+                    </x-containers.two-column-layout-sidebar>
+                </x-containers.two-column-layout-container>
+            </x-containers.container>
+        </x-containers.site-inner-container>
+    </x-containers.site-container>
 </x-app-layout>

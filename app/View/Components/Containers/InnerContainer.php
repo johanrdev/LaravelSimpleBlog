@@ -23,6 +23,6 @@ class InnerContainer extends Component
      */
     public function render()
     {
-        return view('components.inner-container');
+        return view('components.containers.inner-container');
     }
 }

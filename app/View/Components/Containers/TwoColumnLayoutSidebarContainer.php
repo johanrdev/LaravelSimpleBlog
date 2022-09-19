@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Container extends Component
+class TwoColumnLayoutSidebarContainer extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class Container extends Component
      */
     public function render()
     {
-        return view('components.container');
+        return view('components.containers.two-column-layout-sidebar-container');
     }
 }

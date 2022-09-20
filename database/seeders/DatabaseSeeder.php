@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
             });
         });
 
-        User::factory(3)->create()->each(function($user) {
+        User::factory(25)->create()->each(function($user) {
             Post::factory(10)->create(['user_id' => $user->id]);
 
             Category::factory(3)->create(['user_id' => $user->id]);

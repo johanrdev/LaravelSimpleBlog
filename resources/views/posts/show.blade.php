@@ -24,7 +24,7 @@
                             <x-posts.author-content>
                                 <x-posts.author-title>About the Author</x-posts.author-title>
                                 <x-posts.author-description>
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore neque quisquam ratione sit nesciunt, praesentium dolore? Tempora quo sed inventore cumque minima voluptates unde voluptatibus labore, rem error sapiente amet?
+                                    {{ $post->user->description }}
                                 </x-posts.author-description>
                             </x-posts.author-content>
                         </x-posts.author-container>

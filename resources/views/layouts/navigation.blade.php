@@ -18,7 +18,10 @@
                         </x-links.nav-link>
                     @endif
                     <x-links.nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
-                        {{ __('Browse') }}
+                        {{ __('Posts') }}
+                    </x-links.nav-link>
+                    <x-links.nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                        {{ __('Users') }}
                     </x-links.nav-link>
                 </div>
             </div>
@@ -95,7 +98,10 @@
                 {{ __('Feed') }}
             </x-links.responsive-nav-link>
             <x-links.responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
-                {{ __('Browse') }}
+                {{ __('Posts') }}
+            </x-links.responsive-nav-link>
+            <x-links.responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                {{ __('Users') }}
             </x-links.responsive-nav-link>
         </div>
 

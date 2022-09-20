@@ -13,17 +13,10 @@
                         @if (Auth::user()->id !== $user->id)
                             @if (Auth::user()->followings->contains($user))
                                 <p>You are following {{ $user->name }}!</p>
-                                <x-links.link onclick="event.preventDefault(); document.getElementById('unfollow-user-form').submit();" class="cursor-pointer">Unfollow {{ $user->name }}?</x-links.link>
-
-                                <form method="POST" action="{{ route('unfollow', $user) }}" id="unfollow-user-form">
-                                    @csrf
-                                </form>
+                                
+                                <x-links.unfollow-link :user="$user" />
                             @else
-                                <x-links.link onclick="event.preventDefault(); document.getElementById('follow-user-form').submit();" class="cursor-pointer">Follow {{ $user->name }}</x-links.link>
-
-                                <form method="POST" action="{{ route('follow', $user) }}" id="follow-user-form">
-                                    @csrf
-                                </form>
+                                <x-links.follow-link :user="$user" />
                             @endif
                         @endif
                     </div>

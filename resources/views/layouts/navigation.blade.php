@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-teal-500 border-b-4 border-teal-600">
+<nav x-data="{ open: false }" class="bg-teal-500 sm:border-b-4 border-teal-600">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -42,6 +42,9 @@
                         <x-slot name="content">
                             <!-- Authentication -->
                             @if (Auth::check())
+                                <x-links.dropdown-link :href="route('users.show', Auth::user())">
+                                    {{ __('Go to profile') }}
+                                </x-links.dropdown-link>
                                 <x-links.dropdown-link :href="route('posts.create')">
                                     {{ __('Write post') }}
                                 </x-links.dropdown-link>
@@ -88,6 +91,9 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-teal-600">
         <div class="pt-2 pb-3">
+            <x-links.responsive-nav-link :href="route('feed')" :active="request()->routeIs('feed')">
+                {{ __('Feed') }}
+            </x-links.responsive-nav-link>
             <x-links.responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                 {{ __('Browse') }}
             </x-links.responsive-nav-link>
@@ -95,13 +101,12 @@
 
         <!-- Responsive Settings Options -->
         @if (Auth::check())
-            <div class="pt-4 pb-1 border-t border-teal-400">
-                <div class="px-4">
-                    <div class="font-bold text-base text-teal-200">Signed in as {{ Auth::user()->name }}</div>
-                    {{-- <div class="font-bold text-sm text-teal-200">{{ Auth::user()->email }}</div> --}}
-                </div>
+            <div class="pt-2 pb-3 border-t border-teal-400">
+                <x-links.responsive-nav-link :href="route('users.show', Auth::user())" :active="request()->routeIs('users.show')">
+                    Signed in as {{ Auth::user()->name }}
+                </x-links.responsive-nav-link>
 
-                <div class="mt-3">
+                <div>
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

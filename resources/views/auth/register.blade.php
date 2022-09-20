@@ -14,12 +14,26 @@
 
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
+            
+            <!-- Blog name -->
+            <div class="mt-4">
+                <x-input-label for="blog_name" :value="__('Blog name')" />
+
+                <x-text-input id="blog_name" class="block mt-1 w-full" type="text" name="blog_name" :value="old('blog_name')" required autofocus />
+            </div>
 
             <!-- Email Address -->
             <div class="mt-4">
                 <x-input-label for="email" :value="__('Email')" />
 
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
+
+             <!-- Description -->
+             <div class="mt-4">
+                <x-input-label for="description" :value="__('Description')" />
+
+                <textarea id="description" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full resize-none" name="description" rows="7" required> {{ old('description') }}</textarea>
             </div>
 
             <!-- Password -->

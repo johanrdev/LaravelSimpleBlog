@@ -10,11 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePostRequest;
 
-class PostController extends Controller
-{
+class PostController extends Controller {
     public function __construct() {
         $this->middleware('auth')->except(['index', 'show']);
-
         $this->authorizeResource(Post::class);
     }
 

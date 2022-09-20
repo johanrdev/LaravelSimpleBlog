@@ -8,8 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
+    public function __construct() {
+        $this->middleware('auth');
+        $this->authorizeResource(User::class);
+    }
+
     public function index() {
         return 'test index';
     }

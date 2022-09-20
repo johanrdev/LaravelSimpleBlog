@@ -3,86 +3,66 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+    public function index() {
         return 'test index';
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+    public function create() {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
+    public function show(User $user) {
         $posts = $user->posts()->paginate(10);
 
         return view('users.show', compact('user', 'posts'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
+    public function edit(User $user) {
+        return view('users.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
+    public function update(UpdateUserRequest $request, User $user) {
+        $user_to_update = User::find($user->id);
+
+        $password = $user_to_update->password;
+
+        if ($request->filled('new_password')) {
+            $request->validate([
+                'new_password' => 'min:8'
+            ]);
+
+            $password = Hash::make($request->input('new_password'));
+        }
+
+        if (Hash::check($request->input('password'), $user_to_update->password)) {
+            $user->update([
+                'name' => $request->input('name'),
+                'blog_name' => $request->input('blog_name'),
+                'email' => $request->input('email'),
+                'description' => $request->input('description'),
+                'password' => $password
+            ]);
+
+            return redirect()->route('users.edit', compact('user'))
+                ->with('message', 'User was successfully updated!');
+        }
+
+        return redirect()->route('users.edit', compact('user'))
+            ->withErrors(['error' => 'Incorrect credentials']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
+    public function destroy(User $user) {
         //
     }
 

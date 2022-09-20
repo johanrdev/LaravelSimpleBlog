@@ -42,11 +42,11 @@
                         <x-slot name="content">
                             <!-- Authentication -->
                             @if (Auth::check())
-                                <x-links.dropdown-link :href="route('feed')">
-                                    {{ __('Feed') }}
-                                </x-links.dropdown-link>
                                 <x-links.dropdown-link :href="route('posts.create')">
                                     {{ __('Write post') }}
+                                </x-links.dropdown-link>
+                                <x-links.dropdown-link :href="route('users.edit', Auth::user())">
+                                    {{ __('Edit settings') }}
                                 </x-links.dropdown-link>
                             @endif
 
@@ -88,9 +88,6 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-teal-600">
         <div class="pt-2 pb-3">
-            <x-links.responsive-nav-link :href="route('feed')" :active="request()->routeIs('feed')">
-                {{ __('Feed') }}
-            </x-links.responsive-nav-link>
             <x-links.responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                 {{ __('Browse') }}
             </x-links.responsive-nav-link>

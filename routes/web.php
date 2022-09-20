@@ -40,23 +40,6 @@ Route::get('/feed', function() {
         ->orderBy('created_at', 'desc')
         ->paginate(10);
 
-    // $arr = Auth::user()->followings->map(function($item) {
-    //     return $item->pivot->created_at;
-    // });
-
-    // $feed = Post::whereIn('user_id', Auth::user()->followings
-    //     ->map(function($user) { 
-    //         return $user->id; 
-    //     }))
-    //     ->where(function($query) use ($arr) {
-    //         foreach ($arr as $a) {
-    //             $query->where('created_at', '>', $a);
-    //         }
-    //     })
-    //     ->orderBy('created_at', 'desc')
-    //     ->limit(50)
-    // ->paginate(5);
-
     return view('feed', compact('notifications')); 
 })->middleware('auth')->name('feed');
 

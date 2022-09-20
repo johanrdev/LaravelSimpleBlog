@@ -5,13 +5,13 @@
                 <x-containers.inner-container>
                     <x-page-header>
                         <x-page-title>
-                            {{ $user->name . __('\'s profile') }}
+                            {{ $user->name }}
                         </x-page-title>
 
                         <p>{{ $user->description }}</p>
                     </x-page-header>
 
-                    <div class="flex uppercase text-xs font-bold">
+                    <div class="flex">
                         @if (Auth::user()->id !== $user->id)
                             @if (Auth::user()->followings->contains($user))
                                 {{-- <p>You are following {{ $user->name }}!</p> --}}
@@ -21,8 +21,6 @@
                                 <x-links.follow-link :user="$user" />
                             @endif
                         @endif
-
-                        <span class="ml-2">{{ $user->posts()->count() }} posts</span>
                     </div>
                 </x-containers.inner-container>
             </x-containers.container>

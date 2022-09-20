@@ -9,8 +9,7 @@
                         </x-page-title>
                     </x-page-header>
 
-                    <div>
-                        @if (Auth::user()->id !== $user->id)
+                    @if (Auth::user()->id !== $user->id)
                             @if (Auth::user()->followings->contains($user))
                                 <p>You are following {{ $user->name }}!</p>
                                 
@@ -19,7 +18,6 @@
                                 <x-links.follow-link :user="$user" />
                             @endif
                         @endif
-                    </div>
                 </x-containers.inner-container>
             </x-containers.container>
         </x-containers.site-inner-container>

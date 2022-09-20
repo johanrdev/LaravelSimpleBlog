@@ -8,7 +8,7 @@
                             {{ count($results) . __(' result(s) for: ') . '"' . $term . '"' }}
                         </x-page-title>
 
-                        <x-return-link :href="route('posts.index')" />
+                        <x-links.return-link :href="route('posts.index')" />
                     </x-page-header>
 
                     @forelse ($results as $post)

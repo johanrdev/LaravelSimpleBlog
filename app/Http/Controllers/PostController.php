@@ -120,6 +120,6 @@ class PostController extends Controller {
             'notifiable_id' => null
         ]);
 
-        return redirect()->route('posts.index', Auth::user());
+        return redirect()->route('dashboard.index', Auth::user())->with('message', 'The post was successfully deleted!');
     }
 }

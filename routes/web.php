@@ -33,7 +33,17 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function() {
-    return view('dashboard');
+    if (Auth::check()) {
+        $notifications = Notification::whereIn('user_id', Auth::user()->followings
+        ->map(function($user) {  return $user->id; }))
+            ->orWhere('user_id', Auth::user()->id)
+            ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
+        return view('dashboard.index', compact('notifications'));
+    } else {
+        return redirect()->route('login');
+    }
 })->name('dashboard');
 
 // Route::get('/feed', function() {

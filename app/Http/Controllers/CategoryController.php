@@ -39,14 +39,20 @@ class CategoryController extends Controller
     }
 
     public function edit(Category $category) {
-        return view('categories.edit');
+        return view('categories.edit', compact('category'));
     }
 
-    public function update(Request $request, Category $category) {
-        //
+    public function update(StoreCategoryRequest $request, Category $category) {
+        $category->update([
+            'name' => $request->input('name')
+        ]);
+
+        return redirect()->route('dashboard.index');
     }
 
     public function destroy(Category $category) {
-        //
+        $category->delete();
+
+        return redirect()->route('dashboard.index')->with('message', 'The category was successfully deleted!');
     }
 }

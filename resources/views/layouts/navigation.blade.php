@@ -48,12 +48,6 @@
                                 <x-links.dropdown-link :href="route('users.show', Auth::user())">
                                     {{ __('Go to profile') }}
                                 </x-links.dropdown-link>
-                                <x-links.dropdown-link :href="route('posts.create')">
-                                    {{ __('Create new post') }}
-                                </x-links.dropdown-link>
-                                <x-links.dropdown-link :href="route('categories.create')">
-                                    {{ __('Create new category') }}
-                                </x-links.dropdown-link>
                                 <x-links.dropdown-link :href="route('users.edit', Auth::user())">
                                     {{ __('Edit settings') }}
                                 </x-links.dropdown-link>
@@ -105,15 +99,6 @@
             </x-links.responsive-nav-link>
             <x-links.responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                 {{ __('Users') }}
-            </x-links.responsive-nav-link>
-        </div>
-
-        <div class="pt-2 pb-3 border-t border-teal-400">
-            <x-links.responsive-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
-                Create new post
-            </x-links.responsive-nav-link>
-            <x-links.responsive-nav-link :href="route('categories.create')" :active="request()->routeIs('categories.create')">
-                Create new category
             </x-links.responsive-nav-link>
         </div>
 

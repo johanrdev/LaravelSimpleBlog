@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Redirect;
 
-class CommentController extends Controller
-{
+class CommentController extends Controller {
     public function __construct() {
         $this->middleware('auth');
     }
@@ -47,10 +46,7 @@ class CommentController extends Controller
         return redirect(route('posts.show', compact('post')) . '#comment-form');
     }
 
-    public function storeReply(Request $request, Comment $comment) {
-        $request->validate([
-            'text' => 'required|min:3|max:750'
-        ]);
+    public function storeReply(StoreCommentRequest $request, Comment $comment) {
 
         Comment::create([
             'text' => $request->input('text'),
@@ -68,48 +64,25 @@ class CommentController extends Controller
         return view('comments.reply', compact('comment'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Comment $comment)
-    {
+    public function show(Comment $comment) {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Comment $comment)
-    {
-        //
+    public function edit(Comment $comment) {
+        return view('comments.edit', compact('comment'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Comment $comment)
-    {
-        //
+    public function update(StoreCommentRequest $request, Comment $comment) {
+        $comment->update([
+            'text' => $request->input('text')
+        ]);
+
+        $post = $comment->post;
+
+        return redirect(route('posts.show', compact('post')) . '#comment-form');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Comment $comment)
-    {
+    public function destroy(Comment $comment) {
         $post = $comment->post;
 
         $comment->notifications()->update([

@@ -11,7 +11,7 @@ class StoreCommentRequest extends FormRequest
     }
 
     public function rules() {
-        $this->redirect = url()->previous() . '#comment-form';
+        // $this->redirect = url()->previous() . '#comment-form';
         
         return [
             'text' => 'required|min:3|max:750'

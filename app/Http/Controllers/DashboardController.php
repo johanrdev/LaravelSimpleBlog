@@ -21,14 +21,19 @@ class DashboardController extends Controller
     public function posts() {
         $posts = Auth::user()
             ->posts()
-            ->orderBy('id', 'desc')
+            ->orderBy('title', 'asc')
         ->paginate(10);
         
         return view('dashboard.posts', compact('posts'));
     }
 
     public function categories() {
-        return 'categories';
+        $categories = Auth::user()
+            ->categories()
+            ->orderBy('name', 'asc')
+        ->paginate(10);
+        
+        return view('dashboard.categories', compact('categories'));
     }
 
     public function followers() {

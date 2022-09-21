@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('feed') }}">
+                    <a href="{{ route('dashboard') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-teal-100" />
                     </a>
                 </div>
@@ -13,8 +13,8 @@
                 <!-- Navigation Links -->
                 <div class="hidden sm:-my-1 sm:ml-10 sm:flex">
                     @if (Auth::check())
-                        <x-links.nav-link :href="route('feed')" :active="request()->routeIs('feed')">
-                            {{ __('Feed') }}
+                        <x-links.nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
                         </x-links.nav-link>
                     @endif
                     <x-links.nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
@@ -97,8 +97,8 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-teal-600">
         <div class="pt-2 pb-3">
-            <x-links.responsive-nav-link :href="route('feed')" :active="request()->routeIs('feed')">
-                {{ __('Feed') }}
+            <x-links.responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                {{ __('Dashboard') }}
             </x-links.responsive-nav-link>
             <x-links.responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
                 {{ __('Posts') }}

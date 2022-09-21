@@ -3,6 +3,7 @@
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Notification;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
@@ -23,30 +24,40 @@ use Illuminate\Support\Facades\Route;
 
 // Route::model('user', User::class);
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('posts.index', Auth::user());
-    } else {
-        return redirect()->route('login');
-    }
-});
+// Route::get('/', function () {
+//     if (Auth::check()) {
+//         return view('dashboard');
+//     } else {
+//         return redirect()->route('login');
+//     }
+// });
 
-Route::get('/feed', function() {
-    $notifications = Notification::whereIn('user_id', Auth::user()->followings
-        ->map(function($user) { 
-            return $user->id; 
-        }))
-        ->orWhere('user_id', Auth::user()->id)
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+Route::get('/', function() {
+    return view('dashboard');
+})->name('dashboard');
 
-    return view('feed', compact('notifications')); 
-})->middleware('auth')->name('feed');
+// Route::get('/feed', function() {
+//     $notifications = Notification::whereIn('user_id', Auth::user()->followings
+//         ->map(function($user) { 
+//             return $user->id; 
+//         }))
+//         ->orWhere('user_id', Auth::user()->id)
+//         ->orderBy('created_at', 'desc')
+//         ->paginate(10);
+
+//     return view('feed', compact('notifications')); 
+// })->middleware('auth')->name('feed');
 
 Route::resource('posts', PostController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('comments', CommentController::class);
 Route::resource('users', UserController::class);
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('/dashboard/posts', [DashboardController::class, 'posts'])->name('dashboard.posts');
+Route::get('/dashboard/categories', [DashboardController::class, 'categories'])->name('dashboard.categories');
+Route::get('/dashboard/followers', [DashboardController::class, 'followers'])->name('dashboard.followers');
+Route::get('/dashboard/followings', [DashboardController::class, 'followings'])->name('dashboard.followings');
 
 // Route::get('/posts', [PostController::class, 'index'])->name('browse');
 // Route::get('/users/{user}/blog', [PostController::class, 'getUserBlog'])->name('getUserBlog');

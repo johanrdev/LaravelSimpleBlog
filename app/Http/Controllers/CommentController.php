@@ -47,15 +47,25 @@ class CommentController extends Controller
         return redirect(route('posts.show', compact('post')) . '#comment-form');
     }
 
-    public function reply(Comment $comment) {
+    public function storeReply(Request $request, Comment $comment) {
+        $request->validate([
+            'text' => 'required|min:3|max:750'
+        ]);
+
         Comment::create([
-            'text' => 'Test reply',
+            'text' => $request->input('text'),
             'user_id' => Auth::user()->id,
             'post_id' => $comment->post_id,
             'parent_id' => $comment->id
         ]);
+
+        $post = $comment->post;
         
-        return $comment;
+        return redirect(route('posts.show', compact('post')) . '#comment-form');
+    }
+
+    public function createReply(Comment $comment) {
+        return view('comments.reply', compact('comment'));
     }
 
     /**

@@ -52,6 +52,8 @@ Route::resource('users', UserController::class);
 // Route::get('/users/{user}/blog', [PostController::class, 'getUserBlog'])->name('getUserBlog');
 
 Route::post('/comments/create/{post}', [CommentController::class, 'storeWithPost'])->name('comments.storeWithPost');
+Route::get('/comments/reply/{comment}', [CommentController::class, 'createReply'])->name('comments.createReply');
+Route::post('/comments/reply/{comment}', [CommentController::class, 'storeReply'])->name('comments.storeReply');
 // Route::post('/comments/reply/{comment}', [CommentController::class, 'reply'])->name('reply');
 
 Route::post('/search', [SearchController::class, 'filter'])->name('search');

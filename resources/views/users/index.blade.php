@@ -9,8 +9,6 @@
                         </x-page-title>
                     </x-page-header>
 
-                    {{-- <x-forms.search-post /> --}}
-
                     @if ($users->hasPages())
                         <x-containers.pagination-container>
                             {{ $users->appends(request()->input())->links() }}

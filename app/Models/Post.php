@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
-{
+class Post extends Model {
     use HasFactory;
 
     protected $fillable = ['title', 'body', 'user_id'];
@@ -26,8 +25,4 @@ class Post extends Model
     public function notifications() {
         return $this->morphMany(Notification::class, 'notifiable');
     }
-
-    // public function getRouteKeyName() {
-    //     return 'title';
-    // }
 }

@@ -36,11 +36,7 @@
                                 </x-page-title>
                             </x-page-header>
 
-                            @if ($errors->any())
-                                @foreach ($errors->all() as $error)
-                                    <x-alert type="error">{{ $error }}</x-alert>
-                                @endforeach
-                            @endif
+                            <x-validation-feedback />
                         
                             <x-forms.create-comment :post="$post" />
                         @endif

@@ -5,13 +5,13 @@
                 <x-containers.inner-container>
                     <x-page-header>
                         <x-page-title>
-                                {{ __('Create new post') }}
+                                {{ __('Create new category') }}
                         </x-page-title>
                     </x-page-header>
 
                     <x-validation-feedback />
                     
-                    <x-forms.create-post />
+                    <x-forms.create-category />
                 </x-containers.inner-container>
             </x-containers.container>
         </x-containers.site-inner-container>

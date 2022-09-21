@@ -3,7 +3,7 @@
         <x-slot name="title">{{ __('Register new user') }}</x-slot>
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-validation-feedback />
 
         <form method="POST" action="{{ route('register') }}">
             @csrf

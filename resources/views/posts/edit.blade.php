@@ -11,11 +11,8 @@
                         <x-forms.delete-post :post="$post" />
                     </x-page-header>
 
-                    @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            <x-alert type="error">{{ $error }}</x-alert>
-                        @endforeach
-                    @endif
+                    <x-validation-feedback />
+                    
                    <x-forms.edit-post :post="$post" />
                 </x-containers.inner-container>
             </x-containers.container>
